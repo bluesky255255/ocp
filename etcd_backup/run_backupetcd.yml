@@ -11,7 +11,7 @@
     - name: Copy script checkpid.sh
       ansible.builtin.copy:
         src: checkmaster.sh
-        dest: /home/wccheng/pid.sh
+        dest: /home/wccheng/checkpid.sh
         mode: u=rx,g=rx,o=rx
 
     - name: Copy script runbackup.sh
