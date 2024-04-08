@@ -2,18 +2,32 @@
 - hosts: rhel9.tingnkai.com
 
   tasks:
-    - name: Check the running process if already run backup.
-      community.general.pids:
-        name: backupetcd.sh
-      register: pid_backupetcd
+    - name: Copy script checkmaster.sh
+      ansible.builtin.copy:
+        src: checkmaster.sh
+        dest: /home/wccheng/checkmaster.sh
+        mode: u=rx,g=rx,o=rx
 
-    - debug: 
-        var: pid_backupetcd
+    - name: Copy script checkpid.sh
+      ansible.builtin.copy:
+        src: checkmaster.sh
+        dest: /home/wccheng/pid.sh
+        mode: u=rx,g=rx,o=rx
 
-    - name: Check pid_backupetcd
-      ansible.builtin.fail:
-        msg: break becuase backup running pid {{ pid_backupetcd.pids  }}
-      when:  pid_backupetcd.pids  != []
+    - name: Copy script runbackup.sh
+      ansible.builtin.copy:
+        src: checkmaster.sh
+        dest: /home/wccheng/runbackup.sh
+        mode: u=rx,g=rx,o=rx
+
+    - name: Copy script backupetcd.sh
+      ansible.builtin.copy:
+        src: checkmaster.sh
+        dest: /home/wccheng/backupetcd.sh
+        mode: u=rx,g=rx,o=rx
+
+    - name: Ensure no backupetcd.sh is runing
+      ansible.builtin.command:  /home/wccheng/checkpid.sh
 
     - name: check master nodes Ready
       ansible.builtin.command:  /home/wccheng/checkmaster.sh
