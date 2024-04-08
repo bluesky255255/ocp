@@ -6,25 +6,25 @@
       ansible.builtin.copy:
         src: checkmaster.sh
         dest: /home/wccheng/checkmaster.sh
-        mode: u=rx,g=rx,o=rx
+        mode: u=rx
 
     - name: Copy script checkpid.sh
       ansible.builtin.copy:
-        src: checkmaster.sh
+        src: checkpid.sh
         dest: /home/wccheng/checkpid.sh
-        mode: u=rx,g=rx,o=rx
+        mode: u=rx
 
     - name: Copy script runbackup.sh
       ansible.builtin.copy:
-        src: checkmaster.sh
+        src: runbackup.sh
         dest: /home/wccheng/runbackup.sh
-        mode: u=rx,g=rx,o=rx
+        mode: u=rx
 
     - name: Copy script backupetcd.sh
       ansible.builtin.copy:
-        src: checkmaster.sh
+        src: backupetcd.sh
         dest: /home/wccheng/backupetcd.sh
-        mode: u=rx,g=rx,o=rx
+        mode: u=rx
 
     - name: Ensure no backupetcd.sh is runing
       ansible.builtin.command:  /home/wccheng/checkpid.sh
