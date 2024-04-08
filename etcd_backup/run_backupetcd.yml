@@ -1,0 +1,29 @@
+---
+- hosts: rhel9.tingnkai.com
+
+  tasks:
+    - name: Check the running process if already run backup.
+      community.general.pids:
+        name: backupetcd.sh
+      register: pid_backupetcd
+
+    - debug: 
+        var: pid_backupetcd
+
+    - name: Check pid_backupetcd
+      ansible.builtin.fail:
+        msg: break becuase backup running pid {{ pid_backupetcd.pids  }}
+      when:  pid_backupetcd.pids  != []
+
+    - name: check master nodes Ready
+      ansible.builtin.command:  /home/wccheng/checkmaster.sh
+      args:
+        stdin: "{{ lookup('env', 'K8S_AUTH_API_KEY') }}"
+      no_log: true
+
+    - name: run backup script
+      ansible.builtin.command:  /home/wccheng/runbackup.sh
+      args:
+        stdin: "{{ lookup('env', 'K8S_AUTH_API_KEY') }}"
+      no_log: true
+
