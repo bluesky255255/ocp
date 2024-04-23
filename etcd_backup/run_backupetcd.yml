@@ -40,5 +40,5 @@
       args:
         stdin: "{{ lookup('env', 'K8S_AUTH_API_KEY') }}"
       no_log: false
-      when: {{ dry_run }} != "true"
+      when: "{{ dry_run }}" != "true"
 
