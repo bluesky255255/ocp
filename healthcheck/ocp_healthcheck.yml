@@ -1,0 +1,21 @@
+- name: OCP health check
+  hosts: localhost
+  connection: local
+  tasks:
+    - name: "copy the script"
+      ansible.builtin.copy:
+        src: wait.sh
+        dest: ~/wait.sh
+        mode: u+x
+
+    - name: "copy the kubeconfig"
+      ansible.builtin.copy:
+        content: "{{ lookup('unvault', 'vaults/kubeconfig') }}"
+        dest: ~/kubeconfig
+
+    - name: try oc command
+      ansible.builtin.command: ~/wait.sh
+      register: results
+
+    - debug:
+        var: results.stdout
