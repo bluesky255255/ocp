@@ -1,3 +1,6 @@
+healthchcek script is copy idea from redhat training
+
+For kubeconfig
 Use follow command to encrypt kubeconfig
 ansible-vault encrypt kubeconfig
 
