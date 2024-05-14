@@ -1,0 +1,5 @@
+Use follow command to encrypt kubeconfig
+ansible-vault encrypt kubeconfig
+
+To view
+ansible-vault view vaults/kubeconfig
